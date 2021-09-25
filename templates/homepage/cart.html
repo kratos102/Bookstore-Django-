@@ -46,16 +46,10 @@
 					</tr>
 					<tr>
 						<td colspan="5">
-						<a class='btn btn-primary float-right' href='/'>Continue shopping</a>
+						<a class='btn btn-primary float-right' href="{% url 'shop' %}">Continue shopping</a>
 						</td>
 					</tr>
 					{% endfor %}
-					<!-- {% if object.coupon %}
-					<tr>
-						<td colspan="4"><b>Coupon</b></td>
-						<td><b>-{{ object.coupon.amount }}</b></td>
-					</tr>
-					{% endif %} -->
 					{% if object.get_total %}
 					<tr>
 						<td colspan="4"><b>Order Total</b></td>
@@ -64,7 +58,7 @@
 					<tr>
 						<td colspan="5">
 						<a class='btn btn-warning float-right ml-2' href='/checkout/'>Proceed to checkout</a>
-						<a class='btn btn-primary float-right' href='/'>Continue shopping</a>
+						<a class='btn btn-primary float-right' href="{% url 'shop' %}">Continue shopping</a>
 						</td>
 					</tr>
 					{% endif %}

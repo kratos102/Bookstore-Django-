@@ -2,37 +2,26 @@
 {% load static %}
 
 {% block content %}
-<div class="super_container">
-<!-- Shop -->
 
 <div class="shop">
 	<div class="container">
 		<div class="row">
-			<div class="col-lg-3">
+			{% for item in object_list %}
+			<div class="col-lg-4">
+				<img class="thumbnail" src="{{item.image.url}}">
+				<div class="box-element product">
+					<h6 class="ellipsify"><strong>{{ item.title }}</strong></h6>
+					<hr>
+					<a class="btn btn-outline-success" href="{{ item.get_absolute_url }}">View</a>
+					{% if item.discount_price %}
+					<h4 style="display: inline-block; float: right"><strong>{{ item.discount_price }} VND</strong></h4>
+					{% else %}
+					<h4 style="display: inline-block; float: right"><strong>{{ item.price }} VND</strong></h4>
+					{% endif %}
+				</div>
 			</div>
-			<div class="col-lg-9">
-					<div class="product_grid">
-						<div class="product_grid_border"></div>
-						{% for item in object_list %}
-						<!-- Product Item -->
-						<div class="product_item is_new ">
-							<a href="{{ item.get_absolute_url }}">
-							<div class="product_border"></div>
-							<div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="{{item.image.url}}" alt=""></div>
-							<div class="product_content">
-								<div class="product_price">{{ item.price }} VND</div>
-								<div class="product_name"><div><a href="{{ item.get_absolute_url }}" tabindex="0">{{ item.title }}</a></div></div>
-							</div>
-							
-							<ul class="product_marks">
-								<li class="product_mark product_discount">-25%</li>
-								<li class="product_mark product_new">new</li>
-							</ul>
-						</a>
-						</div>
-						
-						{% endfor %}
-					</div>
+			{% endfor %}
+			
 			</div>
 		</div>
 	</div>

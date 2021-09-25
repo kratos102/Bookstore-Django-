@@ -25,6 +25,7 @@ def add_to_shoppingcart(request, slug):
         else:
             messages.info(request, "this item was added to your cart") 
             order.items.add(order_item)
+            order_item.save()
             return redirect("order-summary")
     else:
         ordered_date = timezone.now()
@@ -46,6 +47,8 @@ def remove_from_cart(request, slug):
                 ordered = False
             )[0]
             order.items.remove(order_item)
+            order_item.quantity = 1
+            order_item.save()
             messages.info(request, "this item was remove from your cart")
             return redirect("order-summary")
         else:
@@ -77,6 +80,7 @@ def remove_single_item_from_cart(request, slug):
                 order_item.save()
             else:
                 order.items.remove(order_item)
+                order_item.save()
             messages.info(request, "This item quantity was updated.")
             return redirect("order-summary")
         else:

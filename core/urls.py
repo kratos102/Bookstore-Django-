@@ -7,8 +7,7 @@ from django.conf.urls.static import static
 from .views import registerPage, loginPage, logoutUser
 
 urlpatterns = [
-    path('', HomeView.as_view(), name='index'),
-    path('index.html', HomeView.as_view(), name='index'),
+    path('', Home.as_view(), name='index'),
     path('cart.html', OrderSummaryView.as_view(), name='order-summary'),
     path('shop.html', ShopView.as_view(), name='shop'),
     path('product.html/<slug>/', ProductDetailView.as_view(), name='product'),
@@ -17,6 +16,7 @@ urlpatterns = [
     path('remove-single-item-from-cart/<slug>/', remove_single_item_from_cart, name='remove-single-item-from-cart'),
     path('register/',registerPage, name='register'),
     path('login/',loginPage, name='login'),
-    path('logout/',logoutUser, name='logout')
+    path('logout/',logoutUser, name='logout'),
+    path('search',searchView, name='search')
 ]   
 urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

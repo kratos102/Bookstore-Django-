@@ -1,4 +1,4 @@
-#!e:\nhasach\venv\scripts\python.exe
+#!e:\bookstore\bookstore-django-\venv\scripts\python.exe
 # When the django-admin.py deprecation ends, remove this script.
 import warnings
 

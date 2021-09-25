@@ -22,6 +22,7 @@ class Book(models.Model):
     category = models.ForeignKey(Category, on_delete= models.CASCADE)
     author = models.ForeignKey(Author, on_delete= models.CASCADE)
     publisher = models.ForeignKey(Publisher, on_delete= models.CASCADE)
+    description = models.TextField(default='This is a book')
     price = models.IntegerField(default=0)
     discount_price = models.IntegerField(blank=True, null= True)
     slug = models.SlugField()

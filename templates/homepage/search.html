@@ -1,0 +1,16 @@
+{% extends 'homepage/base.html' %}
+{% block content %}
+
+<center>
+   {% if items %}
+      {% for item in items %}
+         <li><a href ="{{ item.get_absolute_url }}">{{item.title}}</a></li>
+      {% empty %}
+      <h3>No result</h3>
+      {% endfor %}
+   {% else %}
+      No result
+   {% endif %}
+</center>
+
+{% endblock %}

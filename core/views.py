@@ -10,18 +10,12 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.mixins import LoginRequiredMixin
 from order.models import Order
 
-
 def product (request):
     context = {
         'books': Book.objects.all()
         }
     return render(request, 'homepage/product.html', context)
-      
 
-class HomeView(ListView):
-    model = Book
-    template_name = "homepage/index.html"
-     
 class ShopView(ListView):
     model = Book
     template_name = "homepage/shop.html"
@@ -84,3 +78,14 @@ class OrderSummaryView(LoginRequiredMixin, View):
         except ObjectDoesNotExist:
             messages.warning(self.request, "You do not have an active order")
             return redirect("/")
+
+from django.views.decorators.http import require_GET
+
+@require_GET
+def searchView(request):
+    if 'search'in request.GET and 'search' is not None:
+        context = request.GET['search']
+        items = Book.objects.filter(title__icontains=context)
+    else:
+        items = Book.objects.none()
+    return render(request, 'homepage/search.html', {'items': items})
