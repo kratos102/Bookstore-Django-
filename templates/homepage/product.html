@@ -25,13 +25,14 @@
 			<!-- Description -->
 			<div class="col-lg-5 order-3">
 				<div class="product_description">
-					<div class="product_category">{{ object.category }}</div>
+					<div class="product_category" style="background-color: violet; width: fit-content; font-size: medium;">Category: {{ object.category }}</div>
 					<div class="product_name">{{ object.title }}</div>
-					<div class="rating_r rating_r_4 product_rating"><i></i><i></i><i></i><i></i><i></i></div>
-					<div class="product_text"><p>{{ object.description }}</p></div>
+					<div class="product_author">By Author: {{ object.author }}</div>
+					<div class="product_publisher">Publisher: {{ object.publisher }}</div>
+					<div class="product_text"><p>Description: {{ object.description }}</p></div>
 					<div class="order_info d-flex flex-row">
 						<form action="">
-							<div class="product_price">{{ object.price }} VND</div>
+							<div class="product_price" style="background-color: yellow; width: fit-content;">{{ object.price }} VND</div>
 							<div class="button_container">
 								<a href="{{ object.get_add_to_shoppingcart_url}}" class="button cart_button" style="color: white;">Add to Cart</a>
 								<div class="product_fav"><i class="fas fa-heart"></i></div>

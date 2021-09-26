@@ -1,4 +1,5 @@
 {% load cart_template_tags %}
+
 <header class="header">
 
     <!-- Top Bar -->
@@ -83,7 +84,6 @@
             <div class="row">
                 <div class="col">
                         <div class="main_nav_content d-flex flex-row">
-
                         <div class="cat_menu_container">
                             <div class="cat_menu_title d-flex flex-row align-items-center justify-content-start"> 
                                <div class="btn-group">
@@ -93,11 +93,9 @@
                                         CATEGORIES
                              </button>
                              <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">Fiction</a>
-                                <a class="dropdown-item" href="#">Dictionaries</a>
-                                <a class="dropdown-item" href="#">  Bussiness</a>
-                                <a class="dropdown-item" href="#">Skills</a>
-                                <a class="dropdown-item" href="#">Children's Books</a>
+                                {% for c in categories %}
+                                    <a class="dropdown-item" href="{% url 'shop'%}?category={{c.name}}">{{c.name}}</a>
+                                {% endfor %}                              
                             </div>
                         </div>                   
                     </div>

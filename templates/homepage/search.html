@@ -3,6 +3,7 @@
 
 <center>
    {% if items %}
+      <h3>you search for:</h3>
       {% for item in items %}
          <li><a href ="{{ item.get_absolute_url }}">{{item.title}}</a></li>
       {% empty %}
@@ -12,5 +13,4 @@
       No result
    {% endif %}
 </center>
-
 {% endblock %}

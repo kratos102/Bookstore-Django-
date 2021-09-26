@@ -7,6 +7,7 @@ class Category(models.Model):
     def __str__(self) -> str:
         return self.name
 
+
 class Publisher(models.Model):
     name = models.CharField(max_length=255, default='')
     def __str__(self) -> str:

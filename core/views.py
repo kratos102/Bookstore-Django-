@@ -1,7 +1,7 @@
-from book.models import Book
-from django.shortcuts import redirect, render
+from book.models import *
+from django.shortcuts import get_object_or_404, redirect, render
 from django.views import View
-from django.views.generic import DetailView, ListView
+from django.views.generic import DetailView
 from .forms import CreateUSerForm
 from django.contrib import auth, messages
 from django.contrib.auth import authenticate, login, logout
@@ -10,15 +10,18 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.mixins import LoginRequiredMixin
 from order.models import Order
 
-def product (request):
+def shop(request):
+    category = request.GET.get('category')
+    if category == None:
+        items = Book.objects.all()
+    else:
+        items = Book.objects.filter(category__name = category)
+    categories = Category.objects.all()
     context = {
-        'books': Book.objects.all()
+        'items': items,
+        'categories': categories,
         }
-    return render(request, 'homepage/product.html', context)
-
-class ShopView(ListView):
-    model = Book
-    template_name = "homepage/shop.html"
+    return render(request, 'homepage/shop.html', context)
 
 class ProductDetailView(DetailView):
     model = Book
@@ -83,7 +86,7 @@ from django.views.decorators.http import require_GET
 
 @require_GET
 def searchView(request):
-    if 'search'in request.GET and 'search' is not None:
+    if 'search'in request.GET:
         context = request.GET['search']
         items = Book.objects.filter(title__icontains=context)
     else:
