@@ -1499,15 +1499,7 @@ select option
 	margin-bottom: 18px;
 	margin-top: -10px;
 }
-.footer .logo
-{
-	top: auto;
-	-webkit-transform: transform: none;
-    -moz-transform: transform: none;
-    -ms-transform: transform: none;
-    -o-transform: transform: none;
-    transform: none;
-}
+
 .footer .logo a
 {
 	color: #000000;

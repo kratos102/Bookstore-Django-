@@ -8,7 +8,9 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.mixins import LoginRequiredMixin
-from order.models import Order
+from order.models import *
+from .forms import CheckoutForm, PaymentMethodForm
+from django.http import HttpResponseRedirect, request
 
 def shop(request):
     category = request.GET.get('category')
@@ -92,3 +94,59 @@ def searchView(request):
     else:
         items = Book.objects.none()
     return render(request, 'homepage/search.html', {'items': items})
+
+
+def is_valid_form(values):
+    valid = True
+    for field in values:
+        if field == '':
+            valid = False
+    return valid
+
+class CheckoutView(View):
+    def get(self, request, *args, **kwargs):
+        saved_address = Address.objects.get_or_create(user = request.user)
+        saved_address = saved_address[0]
+        form = CheckoutForm()
+        payment_method = PaymentMethodForm()
+        order_qs = Order.objects.filter(user = request.user, ordered = False)
+        order_item = order_qs[0].items.all()
+        order_total = order_qs[0].get_total()
+
+        context = {
+            'adress': form,
+            'order_item': order_item,
+            'order_total': order_total,
+            'payment_method': payment_method
+        }
+        return render (request,'homepage/checkout.html', context)
+    def post(self, request, *args, **kwargs):
+        saved_adress = Address.objects.get_or_create(user = request.user)
+        saved_adress = saved_adress[0]
+        form = CheckoutForm(instance=saved_adress)
+        payment_obj = Order.objects.filter(user = request.user, ordered = False)[0]
+        payment_form = PaymentMethodForm(instance= payment_obj)
+        if request.method == 'post' or request.method == 'POST':
+            form = CheckoutForm(request.POST, instance=saved_adress)
+            pay_form = PaymentMethodForm(request.POST, instance= payment_obj)
+            if form.is_valid() and pay_form.is_valid:
+                form.save()
+                pay_method = pay_form.save()
+                
+                if pay_method.payment_method == 'Cash on Delivery':
+                    order_qs = Order.objects.filter(user= request.user, ordered = False)
+                    order = order_qs[0]
+                    order.ordered = True
+                    order.orderId = order.id
+                    order.paymentId = pay_method.payment_method 
+                    order.save()
+                    order_items = OrderItem.objects.filter(user = request.user, ordered = False)
+                    for item in order_items:
+                        item.ordered = True
+                        item.save()
+                    messages.info(request,'Order Submited Succesfully, Thank you!')
+                    return redirect('index')
+                
+                if pay_method.payment_method == 'Paypal':
+                    messages.info(request,'This payment method not supported yet, please choose another payment')
+                    return redirect('checkout')

@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'order.apps.OrderConfig',
     'user.apps.UserConfig',
     'core.apps.CoreConfig',
-    'django_filters',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [

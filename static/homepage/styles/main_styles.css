@@ -3645,10 +3645,7 @@ select option
 {
 	font-weight: 500;
 }
-.logos
-{
-	
-}
+
 .logos_list li
 {
 	display: inline-block;
@@ -3657,4 +3654,8 @@ select option
 .logos_list li:last-child
 {
 	margin-right: 0px;
+}
+input[type="radio"], 
+input[type="checkbox"] {
+    display: inline !important;
 }

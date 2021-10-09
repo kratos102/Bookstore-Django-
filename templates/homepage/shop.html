@@ -14,7 +14,8 @@
 					<hr>
 					<a class="btn btn-outline-success" href="{{ item.get_absolute_url }}">View</a>
 					{% if item.discount_price %}
-					<h4 style="display: inline-block; float: right"><strong>{{ item.discount_price }} VND</strong></h4>
+					<div style="display: inline-block; background-color: red; color: white;">On Sale</div>
+					<h4 style="display: inline-block; float: right; color: red"><strong>{{ item.discount_price }} VND</strong></h4>
 					{% else %}
 					<h4 style="display: inline-block; float: right"><strong>{{ item.price }} VND</strong></h4>
 					{% endif %}

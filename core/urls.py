@@ -1,7 +1,7 @@
 from django import views
 from django.urls import path
 from .views import *
-from order.views import add_to_shoppingcart, remove_from_cart, remove_single_item_from_cart
+from order.views import *
 from django.conf import settings
 from django.conf.urls.static import static
 from .views import registerPage, loginPage, logoutUser
@@ -15,6 +15,8 @@ urlpatterns = [
     path('remove-from-cart/<slug>/', remove_from_cart, name='remove-from-cart'),
     path('remove-single-item-from-cart/<slug>/', remove_single_item_from_cart, name='remove-single-item-from-cart'),
     path('register/',registerPage, name='register'),
+    path('checkout/',CheckoutView.as_view(), name='checkout'),
+
     path('login/',loginPage, name='login'),
     path('logout/',logoutUser, name='logout'),
     path('search',searchView, name='search'),

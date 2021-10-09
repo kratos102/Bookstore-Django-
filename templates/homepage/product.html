@@ -6,7 +6,7 @@
 <!-- Single Product -->
 
 <div class="single_product">
-	<div class="container">
+	<div class="container" style="margin-bottom:100px;">
 		<div class="row">
 			<!-- Images -->
 			<div class="col-lg-2 order-lg-1 order-2">
@@ -32,7 +32,12 @@
 					<div class="product_text"><p>Description: {{ object.description }}</p></div>
 					<div class="order_info d-flex flex-row">
 						<form action="">
+							{% if object.discount_price %}
+							<div class="product_price" style="background-color: red; width: fit-content; color: white;">{{ object.discount_price }} VND</div>
+							<div class="product_price" style="background-color: yellow; width: fit-content;"><del>{{ object.price }} VND </del></div>
+							{% else %}
 							<div class="product_price" style="background-color: yellow; width: fit-content;">{{ object.price }} VND</div>
+							{% endif %}
 							<div class="button_container">
 								<a href="{{ object.get_add_to_shoppingcart_url}}" class="button cart_button" style="color: white;">Add to Cart</a>
 								<div class="product_fav"><i class="fas fa-heart"></i></div>

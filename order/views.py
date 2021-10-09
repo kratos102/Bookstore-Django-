@@ -1,10 +1,15 @@
 
+from django.contrib.auth import forms
 from django.contrib.auth.decorators import login_required
+from django.http import request
 from django.utils import timezone
+from django.views.generic.base import View
 from book.models import Book
 from django.shortcuts import get_object_or_404, redirect, render
 from .models import Order, OrderItem
 from django.contrib import messages
+
+
 
 @login_required(login_url='login')
 def add_to_shoppingcart(request, slug):
@@ -89,3 +94,4 @@ def remove_single_item_from_cart(request, slug):
     else:
         messages.info(request, "You do not have an active order")
         return redirect("product", slug=slug)
+
